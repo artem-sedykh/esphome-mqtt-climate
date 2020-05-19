@@ -1,0 +1,69 @@
+Protocol  : TCL112AC
+//размер буфера
+buff_size : 228
+
+//Режимы обдува
+fan_modes:
+ 0 (Auto)
+ 2 (Low)
+ 3 (Medium)
+ 5 (High)
+
+//Режимы работы
+modes:
+ 1 (Heat)
+ 2 (Dry)
+ 3 (Cool)
+ 7 (Fan)
+ 8 (Auto)
+
+min_temp: 16
+max_temp: 31
+step: 0.5
+//Доступны кнопки
+buttons:
+  Health: Режим здоровья, хз что делает, но что то делает
+  Light: Выключение дисплея на кондее
+  Turbo: Максимальный режим
+  Econo: Экологичный режим
+
+//Поведение режимов
+Auto(8):
+  fan_modes: [auto, low, medium, high] доступны все режимы
+  set_temp : disabled игнорируем
+  Health   : enabled
+  Light    : enabled
+  Turbo    : disabled
+  Econo    : disabled
+
+Fan(7):
+  fan_modes: [low, medium, high] все кроме auto
+  set_temp : disabled игнорируем
+  Health   : enabled
+  Light    : enabled
+  Turbo    : enabled (При включеении переключает Fan: 5 (High) Swing(H): On)
+  Econo    : disabled
+
+Cool(3):
+  fan_modes: [auto, low, medium, high] доступны все режимы
+  set_temp : enabled (сбрасывает Turbo)
+  Health   : enabled
+  Light    : enabled
+  Turbo    : enabled (Инициализация Temp: 16C Fan: 5 (High) Swing(H): On) сбрасывает Econo
+  Econo    : enabled (сбрасывает Turbo)
+
+Heat(1):
+  fan_modes: [auto, low, medium, high] доступны все режимы
+  set_temp : enabled (сбрасывает Turbo)
+  Health   : enabled
+  Light    : enabled
+  Turbo    : enabled (При включеении переключает Temp: 31C Fan: 5 (High) Swing(H): On)
+  Econo    : enabled сбрасывает турбо
+
+Dry(2): Описание режима Fan только в Fan: 0 (Auto) температура не меняется
+  fan_modes: [auto]
+  set_temp : disabled игнорируем
+  Health   : enabled
+  Light    : enabled
+  Turbo    : enabled (При включеении переключает Fan: 2 (Low) Swing(H): On Swing(V): On)
+  Econo    : disabled

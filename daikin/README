@@ -1,0 +1,56 @@
+Protocol  : DAIKIN64
+buff_size : 137
+
+//Режимы обдува
+fan_modes:
+ 1 (Auto)
+ 8 (Low)
+ 4 (Medium)
+ 2 (High)
+--------------------------------
+ 3 (Turbo) при включении Turbo
+ 9 (Quiet) при включении Quiet
+
+//Режимы работы
+modes:
+ 8 (Heat)
+ 1 (Dry)
+ 2 (Cool)
+ 4 (Fan)
+ 10 (Auto)
+
+min_temp: 16
+max_temp: 30
+step: 1
+
+//Доступны кнопки
+buttons:
+  Sleep: Режим для сна
+  Turbo: Максимальный режим (перернес в fan_modes)
+  Quiet: Тихий режим (перернес в fan_modes)
+
+//Поведение режимов
+Cool(2):
+  fan_modes: [auto, low, medium, high, turbo, quiet]
+  set_temp : enabled
+  Sleep    : enabled
+
+Dry(1):
+  fan_modes: [auto, low, medium, high]
+  set_temp : enabled
+  Sleep    : disabled
+
+Fan(4):
+  fan_modes: [low, medium, high]
+  set_temp : disabled
+  Sleep    : disabled
+
+Heat(8):
+  fan_modes: [auto, low, medium, high, turbo, quiet]
+  set_temp : enabled
+  Sleep    : enabled
+
+Auto(10):
+  fan_modes: [auto, low, medium, high]
+  set_temp : enabled
+  Sleep    : enabled
